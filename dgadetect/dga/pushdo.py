@@ -58,7 +58,7 @@ def generate(day: date, count: int) -> list[str]:
     r = _days_since_0(day)
     domains = []
     for _ in range(min(count, DOMAINS_PER_DAY)):
-        md5 = hashlib.md5(struct.pack("<I", r)).digest()
+        md5 = hashlib.md5(struct.pack("<I", r), usedforsecurity=False).digest()
         r = struct.unpack("<I", md5[:4])[0]
         domains.append(_domain(md5, (r & 3) + 9))
         r += 1
