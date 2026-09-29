@@ -1,0 +1,21 @@
+# cd suppobox && TZ=UTC python dga.py 1 -t "2024-03-15 00:00:00" | head -20
+experiencebattle.net
+gentlemanheart.net
+alreadyheart.net
+gentlemanperfect.net
+alreadyperfect.net
+gentlemanmayor.net
+alreadymayor.net
+gentlemanbattle.net
+alreadybattle.net
+followheart.net
+memberheart.net
+followperfect.net
+memberperfect.net
+followmayor.net
+membermayor.net
+followbattle.net
+memberbattle.net
+beginheart.net
+knownheart.net
+beginperfect.net

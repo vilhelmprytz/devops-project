@@ -1,0 +1,6 @@
+*
+!Pipfile
+!Pipfile.lock
+!dgadetect/
+!artifacts/model.skops
+**/__pycache__
