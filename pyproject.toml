@@ -1,11 +1,13 @@
 # Tool settings only; dependencies live in the Pipfile.
+# black formats (default line length 88); ruff only lints.
 [tool.ruff]
-line-length = 120
+line-length = 88
 target-version = "py314"
 extend-exclude = [".venv"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]  # black owns line length
 
 [tool.pytest.ini_options]
 testpaths = ["tests/unit"]

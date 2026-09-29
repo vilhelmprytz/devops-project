@@ -3,11 +3,11 @@ RUN := pipenv run
 .PHONY: install lint test data test-data train compare serve docker-build docker-run
 
 install:
-	pipenv install --dev
+	pipenv install --dev --deploy
 
 lint:
 	$(RUN) ruff check .
-	$(RUN) ruff format --check .
+	$(RUN) black --check .
 
 test:
 	$(RUN) pytest tests/unit
