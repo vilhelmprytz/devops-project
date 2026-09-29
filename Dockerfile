@@ -11,7 +11,8 @@ COPY artifacts/model.skops artifacts/model.skops
 RUN useradd --create-home app
 USER app
 
-ENV MODEL_PATH=/app/artifacts/model.skops
+ARG MODEL_VERSION=dev
+ENV MODEL_PATH=/app/artifacts/model.skops MODEL_VERSION=$MODEL_VERSION
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
