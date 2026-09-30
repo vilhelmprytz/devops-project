@@ -1,6 +1,6 @@
 RUN := pipenv run
 
-.PHONY: install lint test data test-data train compare serve docker-build docker-run
+.PHONY: install lint test data test-data train compare serve docker-build docker-run pi-setup
 
 install:
 	pipenv install --dev --deploy
@@ -33,3 +33,6 @@ docker-build:
 
 docker-run:
 	docker run --rm -p 8000:8000 dgadetect:dev
+
+pi-setup:
+	$(RUN) ansible-playbook -i infra/inventory.ini infra/playbook.yml

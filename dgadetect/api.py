@@ -10,7 +10,9 @@ from fastapi.responses import JSONResponse
 from dgadetect import model
 from dgadetect.features import InvalidDomain, extract_name
 
-CANARY = "google.com"  # a known-benign domain; /health fails if it is flagged
+# /health fails unless the model gets both of these right
+BENIGN_CANARY = "google.com"
+MALICIOUS_CANARY = "ysqdwkdpffwxnurw.mu"  # a necurs domain
 
 
 @asynccontextmanager
@@ -45,10 +47,12 @@ def predict(domain: str, request: Request) -> dict:
 @app.get("/health")
 def health(request: Request) -> JSONResponse:
     state = request.app.state
-    canary = model.predict(state.model, [extract_name(CANARY)])[0]
+    names = [extract_name(BENIGN_CANARY), extract_name(MALICIOUS_CANARY)]
+    benign, malicious = model.predict(state.model, names)
+    ok = not benign.malicious and malicious.malicious
     body = {
-        "status": "ok" if not canary.malicious else "canary flagged as malicious",
+        "status": "ok" if ok else "canary check failed",
         "version": state.version,
         "git_commit": state.model["git_commit"],
     }
-    return JSONResponse(body, status_code=200 if not canary.malicious else 503)
+    return JSONResponse(body, status_code=200 if ok else 503)

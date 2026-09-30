@@ -65,6 +65,12 @@ def test_health_fails_when_canary_is_flagged(client_for, tiny_model):
         assert client.get("/health").status_code == 503
 
 
+def test_health_fails_when_model_flags_nothing(client_for, tiny_model):
+    flags_nothing = {**tiny_model, "decision_threshold": 1.01}
+    with client_for(flags_nothing) as client:
+        assert client.get("/health").status_code == 503
+
+
 def test_app_does_not_start_without_a_model(tmp_path, monkeypatch):
     monkeypatch.setenv("MODEL_PATH", str(tmp_path / "missing.skops"))
     with pytest.raises(FileNotFoundError):
