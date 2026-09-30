@@ -22,6 +22,7 @@ CONSONANTS = [
     "kxzqwvjbpq",
     "vqxzkwjbnp",
     "jqzxwkvbmp",
+    "ysqdwkdpffwxnurw",  # the /health malicious canary
 ]
 DIGITS = [
     "a1b2c3d4",

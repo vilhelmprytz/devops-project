@@ -153,3 +153,23 @@ jobs:
         run: >
           gh release create "$TAG" artifacts/model.skops artifacts/metrics.json
           --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "$TAG" --generate-notes
+
+  deploy:
+    needs: [image, release]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: tailscale/github-action@d1b6cd204f8dceda5b3eaad7f1f767be390056cd # v4.2.0
+        with:
+          authkey: ${{ secrets.TS_AUTHKEY }}
+      - name: Deploy to the Pi
+        env:
+          VERSION: ${{ needs.image.outputs.version }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          (umask 077 && printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key)
+          pi=$(tailscale ip -4 devops-project)
+          # the key may only run dgadetect-deploy on the Pi, so we pass just the version
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "deploy@$pi" "$VERSION"

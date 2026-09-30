@@ -1,9 +1,13 @@
+FROM python:3.14-slim@sha256:51dafde81dbdb6ebde285137a295cf18a47ca95234fe388a343719cb97305b3d AS requirements
+RUN pip install --no-cache-dir pipenv
+COPY Pipfile Pipfile.lock ./
+RUN pipenv requirements --hash > requirements.txt
+
 FROM python:3.14-slim@sha256:51dafde81dbdb6ebde285137a295cf18a47ca95234fe388a343719cb97305b3d
 
 WORKDIR /app
-RUN pip install --no-cache-dir pipenv
-COPY Pipfile Pipfile.lock ./
-RUN pipenv install --deploy --system && pip uninstall -y pipenv
+COPY --from=requirements /requirements.txt .
+RUN pip install --no-cache-dir --require-hashes -r requirements.txt
 
 COPY dgadetect/ dgadetect/
 COPY artifacts/model.skops artifacts/model.skops

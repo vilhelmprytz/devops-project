@@ -15,6 +15,7 @@ pytest = "*"
 ruff = "*"
 httpx2 = "*"
 black = "*"
+ansible-core = "*"
 
 [requires]
 python_version = "3.14"
