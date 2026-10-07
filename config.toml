@@ -17,8 +17,8 @@ sha256 = "d35a0d260c030d0c3831db855438b843b8ddd6f7ed77e1dab0f1194e675578d4"
 [model]
 ngram_max = 4            # character n-grams of length 1..4
 n_features = 262144      # 2**18 hashed n-gram buckets
-C = 10.0
-decision_threshold = 0.7
+C = 100.0
+decision_threshold = 0.8
 
 [gate]
 max_fpr = 0.01
