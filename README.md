@@ -2,6 +2,8 @@
 
 MLOps pipeline for a deliberately simple DGA (domain generation algorithm) domain classifier, built for the KTH DevOps course (see `project-proposal.md`). The model is treated as the build artifact: every pull request retrains it and gates it against the latest release, and every merge releases and deploys it.
 
+See [report.pdf](report.pdf) for the project report.
+
 ## Pipeline
 
 `.github/workflows/ci.yml` runs on every pull request and on `main`:
