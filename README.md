@@ -4,6 +4,11 @@ MLOps pipeline for a deliberately simple DGA (domain generation algorithm) domai
 
 See [report.pdf](report.pdf) for the project report.
 
+## Pipeline examples
+
+- [PR #5](https://github.com/vilhelmprytz/devops-project/pull/5): A model regression fails the metrics gate, blocking merge.
+- [PR #6](https://github.com/vilhelmprytz/devops-project/pull/6): A model change passes the metrics gate and all required CI checks.
+
 ## Pipeline
 
 `.github/workflows/ci.yml` runs on every pull request and on `main`:
